@@ -1,0 +1,1 @@
+https://fred.stlouisfed.org/tags/series?t=monthly%3Binflation%3Busa
