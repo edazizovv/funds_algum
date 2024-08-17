@@ -22,7 +22,7 @@ def gentry_load_2nd(bench, target0, target1, n_lags=4):
     series_data = series_data.set_index("date").sort_index()
     series_data.index = series_data.index + pandas.offsets.MonthBegin() - pandas.offsets.MonthBegin()
 
-    d = './data/gentry.xlsx'
+    d = './data/_gentry.xlsx'
 
     stats_data = pandas.read_excel(d)
     stats_data = stats_data.set_index("date").sort_index()

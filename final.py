@@ -24,9 +24,9 @@ from data_util.load_data import standard_load_1st, standard_load_15th, gentry_lo
 from data_util.load_data import gentry_load_2nd
 
 #
-random.seed(666)
-numpy.random.seed(666)
-torch.manual_seed(666)
+random.seed(999)
+numpy.random.seed(999)
+torch.manual_seed(999)
 
 # harsh
 """
@@ -38,11 +38,11 @@ X, Y, X_, Y_, tt, bench, data_pct_lagged_cols, x_factors = gentry_load_2nd(bench
                                                                            n_lags=4, target0='IVV', target1='TLT')
 
 
-"""
+
 start_bounds = [0]
 thresh_bounds = [90]
 end_bounds = [-1]
-"""
+
 """
 start_bounds = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
 thresh_bounds = [45, 55, 65, 75, 85, 95, 105, 115, 125, 135, 145, 155]
@@ -70,11 +70,11 @@ thresh_bounds = [210]
 end_bounds = [210]
 """
 
-
+"""
 start_bounds = [120]
 thresh_bounds = [210]
 end_bounds = [210]
-
+"""
 reported = []
 
 for se in range(len(start_bounds)):
@@ -170,7 +170,7 @@ for se in range(len(start_bounds)):
 
             for r in range(1):
                 distill_model = DecisionTreeRegressor
-                distill_kwargs = {'max_depth': 3}
+                distill_kwargs = {'max_depth': 2}
                 # distill_model = LinearRegression
                 # distill_kwargs = {}
 
@@ -183,7 +183,7 @@ for se in range(len(start_bounds)):
                 summary = still.plot(X_train=X_train_, Y_train=Y_train, tt_train=tt_train, bench_train=bench_train,
                                      X_test=X_test_, Y_test=Y_test, tt_test=tt_test, bench_test=bench_test,
                                      report=hedge_management_report,
-                                     on='filt', do_plot=False)
+                                     on='nn', do_plot=False)
 
                 # pyplot.figure(figsize=(10, 8))
                 # plot_tree(still.distill_model_fit, feature_names=numpy.array(x_factors)[fs_mask].tolist(), precision=6)
@@ -221,4 +221,8 @@ for se in range(len(start_bounds)):
                                                 }
                                           )
                 reported.append(report)
+
+                signals = still.distill_signals(X=X_train_)
+
 reported = pandas.concat(reported, axis=0, ignore_index=True)
+
